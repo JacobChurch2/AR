@@ -757,7 +757,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <trackablesChanged>k__BackingField:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2512387470422636672}
+        m_TargetAssemblyTypeName: ARPlaceObject, Assembly-CSharp
+        m_MethodName: OnPlanesChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlanePrefab: {fileID: 7965262620145151770, guid: c69002402dab0a849ae1732cd61bfac6,
     type: 3}
   m_DetectionMode: -1
@@ -785,18 +797,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2512387470422636669}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9626083b9f4de9045a05edea92515496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   raycastManager: {fileID: 2512387470422636671}
   prefabs:
-  - {fileID: 110828, guid: cae8e749c8d3eb44da3bdd1e6c9f42fd, type: 3}
-  - {fileID: 106936, guid: e8b6fde0ab569f147aad7630f6f09f07, type: 3}
-  - {fileID: 105710, guid: a0a511126f5f6f4449ec80434dc3dfe8, type: 3}
-  - {fileID: 105710, guid: dcdd4333ca90c224794c8a71ea3723ed, type: 3}
-  - {fileID: 137310, guid: aabcf89f159af1c4d98604e1b4dc4d30, type: 3}
+  - {fileID: 7055681897420091907, guid: ccfb4fe760920bc4c9aa7a4e96e45f42, type: 3}
+  planeManager: {fileID: 2512387470422636670}
+  minSpawnInterval: 1
+  maxSpawnInterval: 5
 --- !u!114 &2512387470422636673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +815,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2512387470422636669}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ae760af27e665d4f80220801e981213, type: 3}
   m_Name: 
