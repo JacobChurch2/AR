@@ -10,45 +10,103 @@ public class ARPlaceObject : MonoBehaviour
 	[SerializeField] private ARRaycastManager raycastManager;
 
 	[SerializeField] private GameObject[] prefabs;
+
+	[SerializeField] private ARPlaneManager planeManager;
+
+	private List<ARPlane> planes = new List<ARPlane>();
 	bool isPlacing = false;
+
+	[SerializeField] private float minSpawnInterval = 1f; // Time in seconds between spawns
+	[SerializeField] private float maxSpawnInterval = 5f; // Time in seconds between spawns
+	private float spawnTimer = 0f;
 
 	void Start()
 	{
 		// Get the ARRaycastManager component if it's not already assigned
 		raycastManager ??= GetComponent<ARRaycastManager>();
+		planeManager ??= GetComponent<ARPlaneManager>();
+
+		spawnTimer = Random.Range(minSpawnInterval, maxSpawnInterval);
 	}
 
 	void Update()
 	{
 		// Exit early if ARRaycastManager is not assigned
 		if (raycastManager == null) return;
+		if (planeManager == null) return;
 
-		// Handle touch input (on phones/tablets)
-		if (Touchscreen.current != null &&
-				   Touchscreen.current.touches.Count > 0 &&
-		 Touchscreen.current.touches[0].phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Began &&
-				   !isPlacing)
+		// Update the spawn timer
+		spawnTimer -= Time.deltaTime;
+
+		if (spawnTimer <= 0f)
 		{
-			isPlacing = true;
-
-			// Get touch position on screen
-			Vector2 touchPos = Touchscreen.current.touches[0].position.ReadValue();
-
-			// Place the object at touch position
-			PlaceObject(touchPos);
+			spawnFruit();
+			spawnTimer = Random.Range(minSpawnInterval, maxSpawnInterval);
 		}
-		// Handle mouse input (for desktop testing)
-		else if (Mouse.current != null &&
-							  Mouse.current.leftButton.wasPressedThisFrame &&
-							  !isPlacing)
+
+		//// Handle touch input (on phones/tablets)
+		//if (Touchscreen.current != null &&
+		//		   Touchscreen.current.touches.Count > 0 &&
+		// Touchscreen.current.touches[0].phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Began &&
+		//		   !isPlacing)
+		//{
+		//	isPlacing = true;
+
+		//	// Get touch position on screen
+		//	Vector2 touchPos = Touchscreen.current.touches[0].position.ReadValue();
+
+		//	// Place the object at touch position
+		//	PlaceObject(touchPos);
+		//}
+		//// Handle mouse input (for desktop testing)
+		//else if (Mouse.current != null &&
+		//					  Mouse.current.leftButton.wasPressedThisFrame &&
+		//					  !isPlacing)
+		//{
+		//	isPlacing = true;
+
+		//	// Get mouse position on screen
+		//	Vector2 mousePos = Mouse.current.position.ReadValue();
+
+		//	// Place the object at mouse click
+		//	PlaceObject(mousePos);
+		//}
+
+		//planeManager.trackablesChanged += OnPlanesChanged;
+
+	}
+
+	private void spawnFruit()
+	{
+		int planeCount = planes.Count;
+		if (planeCount == 0) return; // No planes found, exit early
+
+		int randomIndex = Random.Range(0, planeCount);
+
+		// Get a random plane from the list
+		ARPlane randomPlane = planes[randomIndex];
+		if (randomPlane == null) return; // Safety check
+
+		Vector3 randomPosition = randomPlane.center + new Vector3(
+			Random.Range(-randomPlane.size.x / 2, randomPlane.size.x / 2),
+			0.1f, // Slightly above the plane to avoid clipping
+			Random.Range(-randomPlane.size.y / 2, randomPlane.size.y / 2));
+		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+
+		// Instantiate a random prefab at the random position and rotation
+		Instantiate(prefabs[Random.Range(0, prefabs.Length)], randomPosition, randomRotation);
+	}
+
+	public void OnPlanesChanged()
+	{
+		planes.Clear();
+
+		foreach (var plane in planeManager.trackables)
 		{
-			isPlacing = true;
-
-			// Get mouse position on screen
-			Vector2 mousePos = Mouse.current.position.ReadValue();
-
-			// Place the object at mouse click
-			PlaceObject(mousePos);
+			if (plane.alignment == PlaneAlignment.HorizontalUp)
+			{
+				planes.Add(plane);
+			}
 		}
 	}
 
