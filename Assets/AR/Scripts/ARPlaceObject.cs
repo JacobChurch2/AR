@@ -16,9 +16,15 @@ public class ARPlaceObject : MonoBehaviour
 	private List<ARPlane> planes = new List<ARPlane>();
 	bool isPlacing = false;
 
-	[SerializeField] private float minSpawnInterval = 1f; // Time in seconds between spawns
-	[SerializeField] private float maxSpawnInterval = 5f; // Time in seconds between spawns
+	[SerializeField] private float minSpawnInterval = 5f; // Time in seconds between spawns
+	[SerializeField] private float maxSpawnInterval = 6f; // Time in seconds between spawns
 	private float spawnTimer = 0f;
+
+	[SerializeField] private int beeIndex = 0;
+	[SerializeField] private int batIndex = 1;
+	[SerializeField] private int blueberryIndex = 2;
+	[SerializeField] private int fruitMinIndex = 3;
+	[SerializeField] private int fruitMaxIndex = 6;
 
 	void Start()
 	{
@@ -40,7 +46,7 @@ public class ARPlaceObject : MonoBehaviour
 
 		if (spawnTimer <= 0f)
 		{
-			spawnFruit();
+			SpawnItem();
 			spawnTimer = Random.Range(minSpawnInterval, maxSpawnInterval);
 		}
 
@@ -76,25 +82,42 @@ public class ARPlaceObject : MonoBehaviour
 
 	}
 
-	private void spawnFruit()
+	private void SpawnItem()
 	{
 		int planeCount = planes.Count;
-		if (planeCount == 0) return; // No planes found, exit early
+		if (planeCount == 0) return;
 
 		int randomIndex = Random.Range(0, planeCount);
 
-		// Get a random plane from the list
 		ARPlane randomPlane = planes[randomIndex];
 		if (randomPlane == null) return; // Safety check
 
 		Vector3 randomPosition = randomPlane.center + new Vector3(
 			Random.Range(-randomPlane.size.x / 2, randomPlane.size.x / 2),
-			0.1f, // Slightly above the plane to avoid clipping
+			0.3f, // Slightly above the plane to avoid clipping
 			Random.Range(-randomPlane.size.y / 2, randomPlane.size.y / 2));
 		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 
-		// Instantiate a random prefab at the random position and rotation
-		Instantiate(prefabs[Random.Range(0, prefabs.Length)], randomPosition, randomRotation);
+		float chance = Random.Range(0, 100);
+
+		if(chance < 40) // 40% chance to spawn a fruit
+		{
+			int randomFruitIndex = Random.Range(fruitMinIndex, fruitMaxIndex + 1);
+			Instantiate(prefabs[randomFruitIndex], randomPosition, randomRotation);
+		}
+		else if (chance < 63) // 23% chance to spawn a bee
+		{
+			Instantiate(prefabs[beeIndex], randomPosition, randomRotation);
+		}
+		else if (chance < 80) // 17% chance to spawn a blueberry
+		{
+			Instantiate(prefabs[blueberryIndex], randomPosition, randomRotation);
+		}
+		else if (chance < 92) // 12% chance to spawn a bat
+		{
+			Instantiate(prefabs[batIndex],randomPosition, randomRotation);
+		}
+		// 8% chance to spawn nothing
 	}
 
 	public void OnPlanesChanged()
