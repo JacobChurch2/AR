@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b18b9f07aa9872e4d92f764c9721da34,
         type: 3}
       propertyPath: m_Name
-      value: Apple_01
+      value: TheApple
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -95,6 +95,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8976451070286135893}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b18b9f07aa9872e4d92f764c9721da34,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8018574709985936732}
   m_SourcePrefab: {fileID: 100100000, guid: b18b9f07aa9872e4d92f764c9721da34, type: 3}
 --- !u!1 &2113104104287696944 stripped
 GameObject:
@@ -136,3 +140,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   berryType: 1
+--- !u!54 &-8018574709985936732
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113104104287696944}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -2,28 +2,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float points = 0f; // Points earned by the player
-
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-    {
-        
-    }
+    private bool blueberryFrenzy = false;
+	private float blueberryFrenzyDuration = 10f; // Duration of the blueberry frenzy in seconds
+    private float blueberryFrenzyTimer = 0f; // Timer for the blueberry frenzy
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        if(blueberryFrenzy)
+		{
+			blueberryFrenzyTimer -= Time.deltaTime;
+			if (blueberryFrenzyTimer <= 0f)
+			{
+				blueberryFrenzy = false; // End the frenzy when the timer runs out
+			}
+		}
+	}
 
-    public void PickupBerry(Berry berry)
+    public void startBlueberryFrenzy()
     {
-		AddPoints(berry.GetPoints());
+		blueberryFrenzy = true;
+		blueberryFrenzyTimer = blueberryFrenzyDuration;
 	}
 
-    private void AddPoints(float amount)
+    public bool GetBlueberryFrenzy()
 	{
-		points += amount;
-		//Debug.Log("Points added: " + amount + ". Total points: " + points);
-	}
+		return blueberryFrenzy;
+	}   
 }

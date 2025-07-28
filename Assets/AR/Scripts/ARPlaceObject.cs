@@ -16,8 +16,8 @@ public class ARPlaceObject : MonoBehaviour
 	private List<ARPlane> planes = new List<ARPlane>();
 	bool isPlacing = false;
 
-	[SerializeField] private float minSpawnInterval = 5f; // Time in seconds between spawns
-	[SerializeField] private float maxSpawnInterval = 6f; // Time in seconds between spawns
+	[SerializeField] private float minSpawnInterval = 10f; // Time in seconds between spawns
+	[SerializeField] private float maxSpawnInterval = 15f; // Time in seconds between spawns
 	private float spawnTimer = 0f;
 
 	[SerializeField] private int beeIndex = 0;

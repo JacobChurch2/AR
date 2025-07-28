@@ -12,14 +12,25 @@ public class Berry : MonoBehaviour
 
 	[SerializeField]
 	public BerryType berryType;
+	private GameManager gameManager;
+
+	private void Start()
+	{
+		gameManager = Object.FindFirstObjectByType<GameManager>();
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.GetComponent<Player>())
 		{
 			// Handle interaction with the player
-			other.GetComponent<Player>().PickupBerry(this);
+			gameManager.AddScore(GetPoints()); // Add points to the score
 			Debug.Log($"Player collected a {berryType}!");
+			if(berryType == BerryType.Blueberry)
+			{
+				// If the berry is a blueberry, activate blueberry frenzy
+				other.GetComponent<Player>().startBlueberryFrenzy();
+			}
 			Destroy(gameObject); // Destroy the berry after collection
 		}
 	}
