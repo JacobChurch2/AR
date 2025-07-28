@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  beeRenderer: {fileID: 352707326664303952}
 --- !u!54 &1368384755752367198
 Rigidbody:
   m_ObjectHideFlags: 0

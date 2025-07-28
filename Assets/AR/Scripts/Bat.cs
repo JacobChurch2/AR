@@ -16,13 +16,26 @@ public class bat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-		if (!GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds))
+		Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+
+		if (player.GetBlueberryFrenzy())
 		{
-			Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-			transform.position += directionToPlayer * speed * Time.deltaTime;
-			transform.LookAt(player.transform);
+			transform.position -= directionToPlayer * speed / 2 * Time.deltaTime;
+			Vector3 awayDirection = transform.position - player.transform.position;
+			Quaternion awayRotation = Quaternion.LookRotation(awayDirection);
+			transform.rotation = awayRotation;
+			//if(beeMaterial) beeMaterial.color = new Color { a = 0.5f, r = beeMaterial.color.r, g = beeMaterial.color.g, b = beeMaterial.color.b }; // Change color to indicate frenzy state
 		}
+		else
+		{
+			Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+			if (!GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds))
+			{
+				transform.position += directionToPlayer * speed * Time.deltaTime;
+				transform.LookAt(player.transform);
+			}
+		}
+		
 	}
 
 	private void OnTriggerEnter(Collider other)
