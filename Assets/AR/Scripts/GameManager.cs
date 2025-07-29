@@ -10,10 +10,9 @@ public class GameManager : MonoBehaviour
 	public float score = 0f;
 	private int lives = 3;
 
-	[SerializeField]
-	private GameObject liveLostScreen;
-	[SerializeField]
-	private TextMeshProUGUI livesLeftText;
+
+	public GameObject liveLostScreen;
+	public TextMeshProUGUI livesLeftText;
 
 	private bool livesLostScreenActive = false; // Track if the live lost screen is active
 

@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 552893150920876314}
   - component: {fileID: 2453310701418751053}
   - component: {fileID: 6113724985288966539}
+  - component: {fileID: 2078444480948454472}
   m_Layer: 5
   m_Name: DeathUI
   m_TagString: Untagged
@@ -651,6 +652,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2078444480948454472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725917370489939461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b302deb498914b449ff54182b4c4dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  livesLeftText: {fileID: 3128738718034494627}
+  restartButton: {fileID: 3034054348347969169}
 --- !u!1 &7668762048605725358
 GameObject:
   m_ObjectHideFlags: 0
