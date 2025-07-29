@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 613972375}
   - component: {fileID: 613972374}
   - component: {fileID: 613972373}
+  - component: {fileID: 613972376}
   m_Layer: 5
   m_Name: Start_Button
   m_TagString: Untagged
@@ -583,7 +584,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 631251009}
+      - m_Target: {fileID: 613972376}
         m_TargetAssemblyTypeName: StartGameScript, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -633,6 +634,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613972371}
   m_CullTransparentMesh: 1
+--- !u!114 &613972376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613972371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e48e58199e12f249b8d4d37d0913027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631251008
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 631251010}
   - component: {fileID: 631251009}
+  - component: {fileID: 631251011}
   m_Layer: 0
   m_Name: StartGameLogic
   m_TagString: Untagged
@@ -677,6 +691,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631251011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631251008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e5f27f357fa1a48b754dd37073e9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesKilled: 0
+  timeSurvived: 0
+  score: 0
+  liveLostScreen: {fileID: 5725917370489939461, guid: 21275575b2b0e914f946b473c4f7f046,
+    type: 3}
+  livesLeftText: {fileID: 0}
 --- !u!1 &984780473
 GameObject:
   m_ObjectHideFlags: 0
