@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
@@ -11,8 +10,7 @@ public class GameOverScreen : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
-		gameManager.ResetGame(); // Reset the game state
-		SceneManager.LoadScene("MainMenu");
+		gameManager.ReturnToMainMenu(); // Use GameManager's state logic
 	}
 
 	private void Start()

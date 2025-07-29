@@ -643,6 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 631251010}
   - component: {fileID: 631251009}
+  - component: {fileID: 631251011}
   m_Layer: 0
   m_Name: StartGameLogic
   m_TagString: Untagged
@@ -677,6 +678,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631251011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631251008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e5f27f357fa1a48b754dd37073e9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesKilled: 0
+  timeSurvived: 0
+  score: 0
+  liveLostScreen: {fileID: 5725917370489939461, guid: 21275575b2b0e914f946b473c4f7f046,
+    type: 3}
+  livesLeftText: {fileID: 0}
 --- !u!1 &984780473
 GameObject:
   m_ObjectHideFlags: 0
