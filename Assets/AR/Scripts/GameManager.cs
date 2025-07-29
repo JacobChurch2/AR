@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO: Implement game over logic here
-    }
+		timeSurvived += Time.deltaTime; // Increment time survived
+	}
 
 	public void died()
 	{
@@ -37,12 +38,29 @@ public class GameManager : MonoBehaviour
 		{
 			// Handle game over logic here, e.g., show game over screen, reset game, etc.
 			Debug.Log("Game Over");
-			// Optionally, you can reset the game or load a game over scene
-			// SceneManager.LoadScene("GameOverScene");
+
+			score += (timeSurvived * .5f); // Add score based on time survived
+										 // Optionally, you can reset the game or load a game over scene
+			SceneManager.LoadScene("GameOver");
 		}
 		else
 		{
 			Debug.Log($"Lives remaining: {lives}");
+			
+			foreach (var berry in Object.FindObjectsByType<Berry>(FindObjectsSortMode.None))
+			{
+				Destroy(berry.gameObject); // Destroy all berries when player dies
+			}
+
+			foreach (var bat in Object.FindObjectsByType<bat>(FindObjectsSortMode.None))
+			{
+				Destroy(bat.gameObject); // Destroy all bats when player dies
+			}
+
+			foreach (var bee in Object.FindObjectsByType<Bee>(FindObjectsSortMode.None))
+			{
+				Destroy(bee.gameObject); // Destroy all bees when player dies
+			}
 		}
 	}
 
