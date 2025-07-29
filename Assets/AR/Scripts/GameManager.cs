@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Playing:
                 timerRunning = true;
+                // Ensure liveLostScreen is hidden and flag reset when gameplay starts
+                if (liveLostScreen != null) liveLostScreen.SetActive(false);
+                livesLostScreenActive = false;
                 break;
             case GameState.GameOver:
                 timerRunning = false;
@@ -93,7 +96,15 @@ public class GameManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        StartCoroutine(DelayedSetMainMenuState());
+    }
+
+    private System.Collections.IEnumerator DelayedSetMainMenuState()
+    {
+        // Wait for the scene to load
+        yield return null;
         SetState(GameState.MainMenu);
+        Debug.Log("Returned to MainMenu and state set.");
     }
 
     public void died()
@@ -149,6 +160,9 @@ public class GameManager : MonoBehaviour
         timeSurvived = 0f; // Reset time survived
         score = 0f; // Reset score
         timerRunning = true; // Restart the timer
+        // Hide liveLostScreen and reset flag
+        if (liveLostScreen != null) liveLostScreen.SetActive(false);
+        livesLostScreenActive = false;
         Debug.Log("Game has been reset.");
         Debug.Log($"Lives remaining: {lives}");
         Debug.Log($"Score: {score}");
