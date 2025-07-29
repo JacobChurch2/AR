@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class bat : MonoBehaviour
+public class Bat : MonoBehaviour
 {
 	private Player player;
-    private float speed = 1f; // Speed of the bat
+    public float speed = 1f; // Speed of the bat
 	private GameManager gameManager;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created

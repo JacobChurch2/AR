@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,8 +6,16 @@ public class GameManager : MonoBehaviour
 {
     public float enemiesKilled = 0f;
 	public float timeSurvived = 0f;
-	private float score = 0f;
+	private bool timerRunning = true; // Timer state
+	public float score = 0f;
 	private int lives = 3;
+
+	[SerializeField]
+	private GameObject liveLostScreen;
+	[SerializeField]
+	private TextMeshProUGUI livesLeftText;
+
+	private bool livesLostScreenActive = false; // Track if the live lost screen is active
 
 	// Singleton instance
 	public static GameManager Instance { get; private set; }
@@ -28,7 +37,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		timeSurvived += Time.deltaTime; // Increment time survived
+		if (timerRunning) timeSurvived += Time.deltaTime; // Increment time survived
 	}
 
 	public void died()
@@ -52,7 +61,7 @@ public class GameManager : MonoBehaviour
 				Destroy(berry.gameObject); // Destroy all berries when player dies
 			}
 
-			foreach (var bat in Object.FindObjectsByType<bat>(FindObjectsSortMode.None))
+			foreach (var bat in Object.FindObjectsByType<Bat>(FindObjectsSortMode.None))
 			{
 				Destroy(bat.gameObject); // Destroy all bats when player dies
 			}
@@ -61,12 +70,45 @@ public class GameManager : MonoBehaviour
 			{
 				Destroy(bee.gameObject); // Destroy all bees when player dies
 			}
+
+			timerRunning = false; // Stop the timer
+			liveLostScreen.SetActive(true); // Show the live lost screen
+			livesLeftText.text = $"Lives Remaining: \n{lives}"; // Update the lives left text
+			livesLostScreenActive = true; // Set the lives lost screen as active
 		}
+	}
+
+	public void playAgainAfterLostALife()
+	{
+		liveLostScreen.SetActive(false); // Hide the live lost screen
+		timerRunning = true; // Restart the timer
+		livesLostScreenActive = false; // Reset the lives lost screen state
+	}
+
+	public void ResetGame()
+	{
+		lives = 3; // Reset lives to 3
+		enemiesKilled = 0f; // Reset enemies killed
+		timeSurvived = 0f; // Reset time survived
+		score = 0f; // Reset score
+		timerRunning = true; // Restart the timer
+		
+
+		Debug.Log("Game has been reset.");
+		Debug.Log($"Lives remaining: {lives}");
+		Debug.Log($"Score: {score}");
+		Debug.Log($"Enemies killed: {enemiesKilled}");
+		Debug.Log($"Time survived: {timeSurvived}");
 	}
 
 	public void AddScore(float points)
 	{
 		score += points; // Add points to the score
 		Debug.Log($"Score: {score}");
+	}
+
+	public bool IsLivesLostScreenActive()
+	{
+		return livesLostScreenActive; // Return the state of the lives lost screen
 	}
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -26,6 +25,8 @@ public class ARPlaceObject : MonoBehaviour
 	[SerializeField] private int fruitMinIndex = 3;
 	[SerializeField] private int fruitMaxIndex = 6;
 
+	GameManager gameManager;
+
 	void Start()
 	{
 		// Get the ARRaycastManager component if it's not already assigned
@@ -33,6 +34,8 @@ public class ARPlaceObject : MonoBehaviour
 		planeManager ??= GetComponent<ARPlaneManager>();
 
 		spawnTimer = Random.Range(minSpawnInterval, maxSpawnInterval);
+
+		gameManager = GameManager.Instance; // Get the GameManager instance
 	}
 
 	void Update()
@@ -40,6 +43,8 @@ public class ARPlaceObject : MonoBehaviour
 		// Exit early if ARRaycastManager is not assigned
 		if (raycastManager == null) return;
 		if (planeManager == null) return;
+
+		if (gameManager.IsLivesLostScreenActive()) return;
 
 		// Update the spawn timer
 		spawnTimer -= Time.deltaTime;
@@ -100,14 +105,31 @@ public class ARPlaceObject : MonoBehaviour
 
 		float chance = Random.Range(0, 100);
 
-		if(chance < 40) // 40% chance to spawn a fruit
+		if (chance < 40) // 40% chance to spawn a fruit
 		{
 			int randomFruitIndex = Random.Range(fruitMinIndex, fruitMaxIndex + 1);
 			Instantiate(prefabs[randomFruitIndex], randomPosition, randomRotation);
 		}
 		else if (chance < 63) // 23% chance to spawn a bee
 		{
-			Instantiate(prefabs[beeIndex], randomPosition, randomRotation);
+			GameObject bee = Instantiate(prefabs[beeIndex], randomPosition, randomRotation);
+			// Set bee speed based on time survived
+			if (gameManager.timeSurvived > 60f)
+			{
+				bee.GetComponent<Bee>().speed = Random.Range(1.5f, 2f);
+			}
+			else if (gameManager.timeSurvived > 30f)
+			{
+				bee.GetComponent<Bee>().speed = Random.Range(1f, 1.5f);
+			}
+			else if (gameManager.timeSurvived > 15f)
+			{
+				bee.GetComponent<Bee>().speed = Random.Range(0.5f, 1f);
+			}
+			else
+			{
+				bee.GetComponent<Bee>().speed = Random.Range(0.05f, 0.5f);
+			}
 		}
 		else if (chance < 80) // 17% chance to spawn a blueberry
 		{
@@ -115,7 +137,24 @@ public class ARPlaceObject : MonoBehaviour
 		}
 		else if (chance < 92) // 12% chance to spawn a bat
 		{
-			Instantiate(prefabs[batIndex],randomPosition, randomRotation);
+			GameObject bat = Instantiate(prefabs[batIndex], randomPosition, randomRotation);
+			if (gameManager.timeSurvived > 60f)
+			{
+				bat.GetComponent<Bat>().speed = Random.Range(4f, 5f);
+			}
+			else if (gameManager.timeSurvived > 30f)
+			{
+				bat.GetComponent<Bat>().speed = Random.Range(2.75f, 4f);
+			}
+			else if (gameManager.timeSurvived > 15f)
+			{
+				bat.GetComponent<Bat>().speed = Random.Range(2f, 2.75f);
+			}
+			else
+			{
+				bat.GetComponent<Bat>().speed = Random.Range(0.5f, 1.5f);
+			}
+
 		}
 		// 8% chance to spawn nothing
 	}
