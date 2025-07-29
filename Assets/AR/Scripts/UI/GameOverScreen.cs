@@ -11,7 +11,7 @@ public class GameOverScreen : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
-		gameManager.ResetGame(); // Reset the game state
+		if(gameManager) gameManager.ResetGame(); // Reset the game state
 		SceneManager.LoadScene("MainMenu");
 	}
 
