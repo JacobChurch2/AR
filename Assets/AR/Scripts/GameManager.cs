@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField]
 	private GameObject liveLostScreen;
-	[SerializeField]
+    [SerializeField]
+    private GameObject pauseScreen;
+    [SerializeField]
 	private TextMeshProUGUI livesLeftText;
 
 	private bool livesLostScreenActive = false; // Track if the live lost screen is active
+	private bool pausedScreenActive = false; // Track if the live lost screen is active
 
 	// Singleton instance
 	public static GameManager Instance { get; private set; }
@@ -111,4 +114,19 @@ public class GameManager : MonoBehaviour
 	{
 		return livesLostScreenActive; // Return the state of the lives lost screen
 	}
+    public void PauseGame()
+    {
+        pausedScreenActive = true;
+        Time.timeScale = 0f;
+        if (pauseScreen != null)
+            pauseScreen.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        pausedScreenActive = false;
+        Time.timeScale = 1f;
+        if (pauseScreen != null)
+            pauseScreen.SetActive(false);
+    }
 }
