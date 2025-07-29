@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
 	private int lives = 3;
 
 	[SerializeField]
-	private GameObject liveLostScreen;
+	public GameObject liveLostScreen;
     [SerializeField]
     private GameObject pauseScreen;
     [SerializeField]
-	private TextMeshProUGUI livesLeftText;
+	public TextMeshProUGUI livesLeftText;
 
 	private bool livesLostScreenActive = false; // Track if the live lost screen is active
 	private bool pausedScreenActive = false; // Track if the live lost screen is active

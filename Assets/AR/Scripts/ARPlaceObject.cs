@@ -27,6 +27,9 @@ public class ARPlaceObject : MonoBehaviour
 
 	GameManager gameManager;
 
+	[SerializeField]
+	Player player;
+
 	void Start()
 	{
 		// Get the ARRaycastManager component if it's not already assigned
@@ -36,6 +39,8 @@ public class ARPlaceObject : MonoBehaviour
 		spawnTimer = Random.Range(minSpawnInterval, maxSpawnInterval);
 
 		gameManager = GameManager.Instance; // Get the GameManager instance
+
+		if(!player) player = FindFirstObjectByType<Player>(); // Get the Player instance
 	}
 
 	void Update()
@@ -92,16 +97,22 @@ public class ARPlaceObject : MonoBehaviour
 		int planeCount = planes.Count;
 		if (planeCount == 0) return;
 
-		int randomIndex = Random.Range(0, planeCount);
+		Vector3 randomPosition = Vector3.zero;
+		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0); 
 
-		ARPlane randomPlane = planes[randomIndex];
-		if (randomPlane == null) return; // Safety check
+		do
+		{
+			int randomIndex = Random.Range(0, planeCount);
 
-		Vector3 randomPosition = randomPlane.center + new Vector3(
-			Random.Range(-randomPlane.size.x / 2, randomPlane.size.x / 2),
-			0.3f, // Slightly above the plane to avoid clipping
-			Random.Range(-randomPlane.size.y / 2, randomPlane.size.y / 2));
-		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+			ARPlane randomPlane = planes[randomIndex];
+			if (randomPlane == null) return; // Safety check
+
+			randomPosition = randomPlane.center + new Vector3(
+				Random.Range(-randomPlane.size.x / 2, randomPlane.size.x / 2),
+				0.3f, // Slightly above the plane to avoid clipping
+				Random.Range(-randomPlane.size.y / 2, randomPlane.size.y / 2));
+
+		} while ((randomPosition - player.transform.position).magnitude > 15 ); // Ensure the position is away from the player
 
 		float chance = Random.Range(0, 100);
 
