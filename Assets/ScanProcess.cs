@@ -4,7 +4,6 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ScanProcess : MonoBehaviour
 {
-    [SerializeField]
 	private GameManager gameManager;
 
 	[SerializeField]
@@ -22,8 +21,8 @@ public class ScanProcess : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
-		gameManager ??= GetComponent<GameManager>();
-		if (gameManager) gameManager.enabled = false; // Disable GameManager script at the start of the scan process
+		gameManager = GameManager.Instance; // Get the GameManager instance
+		gameManager.enabled = false; // Disable GameManager script at the start of the scan process
 
 		arPlaceObject ??= FindFirstObjectByType<ARPlaceObject>(); // Get the ARPlaceObject instance
 		if (arPlaceObject) arPlaceObject.enabled = false; // Disable ARPlaceObject script during the scan process

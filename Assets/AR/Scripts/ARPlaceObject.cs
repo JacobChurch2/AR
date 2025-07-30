@@ -112,7 +112,7 @@ public class ARPlaceObject : MonoBehaviour
 				0.3f, // Slightly above the plane to avoid clipping
 				Random.Range(-randomPlane.size.y / 2, randomPlane.size.y / 2));
 
-		} while ((randomPosition - player.transform.position).magnitude > 15 ); // Ensure the position is away from the player
+		} while ((randomPosition - player.transform.position).magnitude > 30 ); // Ensure the position is away from the player
 
 		float chance = Random.Range(0, 100);
 

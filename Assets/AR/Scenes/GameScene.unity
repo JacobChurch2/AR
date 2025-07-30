@@ -691,7 +691,6 @@ GameObject:
   m_Component:
   - component: {fileID: 620815063}
   - component: {fileID: 620815062}
-  - component: {fileID: 620815064}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -732,23 +731,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &620815064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620815061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d97b69a9ea687b4c8b2ed2ff732cb98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 620815062}
-  arPlaceObject: {fileID: 2512387470422636672}
-  scanProcessUI: {fileID: 4750616422758427303}
-  planeManager: {fileID: 2512387470422636670}
-  scanCompleteUI: {fileID: 44297760}
 --- !u!1 &676152921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1127,55 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1663042567}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1366727781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1366727783}
+  - component: {fileID: 1366727782}
+  m_Layer: 0
+  m_Name: ScanProcess
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1366727782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366727781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d97b69a9ea687b4c8b2ed2ff732cb98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 620815062}
+  arPlaceObject: {fileID: 2512387470422636672}
+  scanProcessUI: {fileID: 4750616422758427303}
+  planeManager: {fileID: 2512387470422636670}
+  scanCompleteUI: {fileID: 44297760}
+--- !u!4 &1366727783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366727781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 740.00006, y: 245.51248, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1595677856 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3128738718034494627, guid: 21275575b2b0e914f946b473c4f7f046,
@@ -2058,7 +2089,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 620815064}
+      - m_Target: {fileID: 1366727782}
         m_TargetAssemblyTypeName: ScanProcess, Assembly-CSharp
         m_MethodName: StartGameAfterScanning
         m_Mode: 1
@@ -2125,3 +2156,4 @@ SceneRoots:
   - {fileID: 676152925}
   - {fileID: 1076001420}
   - {fileID: 96104883454348170}
+  - {fileID: 1366727783}
