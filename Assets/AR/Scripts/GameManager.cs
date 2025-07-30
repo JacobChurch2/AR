@@ -20,6 +20,17 @@ public class GameManager : MonoBehaviour
 	private bool livesLostScreenActive = false; // Track if the live lost screen is active
 	private bool pausedScreenActive = false; // Track if the live lost screen is active
 
+    public enum GameState
+    {
+        MainMenu,
+        Playing,
+        GameOver,
+        Win
+    }
+
+    // Game state
+	public GameState CurrentState { get; private set; } = GameState.MainMenu;
+
 	// Singleton instance
 	public static GameManager Instance { get; private set; }
 	// Awake is called when the script instance is being loaded
@@ -36,6 +47,46 @@ public class GameManager : MonoBehaviour
 			Destroy(gameObject); // Destroy duplicate instances
 		}
 	}
+
+    void Start()
+    {
+        StartGame();
+    }
+
+	public void StartGame()
+	{
+		// Set initial state based on current scene
+		if (SceneManager.GetActiveScene().name == "MainMenu")
+			SetState(GameState.Playing);
+		else if (SceneManager.GetActiveScene().name == "GameScene")
+			SetState(GameState.GameOver);
+		else if (SceneManager.GetActiveScene().name == "GameOver")
+			SetState(GameState.MainMenu);
+	}
+
+    public void SetState(GameState newState)
+    {
+        CurrentState = newState;
+        switch (newState)
+        {
+            case GameState.MainMenu:
+                timerRunning = false;
+                break;
+            case GameState.Playing:
+                timerRunning = true;
+                // Ensure liveLostScreen is hidden and flag reset when gameplay starts
+                if (liveLostScreen != null) liveLostScreen.SetActive(false);
+                livesLostScreenActive = false;
+                break;
+            case GameState.GameOver:
+                timerRunning = false;
+                break;
+            case GameState.Win:
+                timerRunning = false;
+                break;
+        }
+        // Optionally, trigger UI updates or events here
+    }
 
     // Update is called once per frame
     void Update()
