@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private GameObject pauseScreen;
     [SerializeField]
 	public TextMeshProUGUI livesLeftText;
+    [SerializeField]
+    private ARPlaneToggleController planeToggleController;
 
 	private bool livesLostScreenActive = false; // Track if the live lost screen is active
 	private bool pausedScreenActive = false; // Track if the live lost screen is active
@@ -51,6 +53,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartGame();
+        
+        // Find the ARPlaneToggleController if not assigned
+        if (planeToggleController == null)
+            planeToggleController = FindFirstObjectByType<ARPlaneToggleController>();
     }
 
 	public void StartGame()
@@ -179,5 +185,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if (pauseScreen != null)
             pauseScreen.SetActive(false);
+    }
+
+    // AR Plane Visualization Control Methods
+    public void ToggleARPlaneVisualization()
+    {
+        if (planeToggleController != null)
+            planeToggleController.TogglePlaneVisualization();
+    }
+
+    public void SetARPlaneVisualization(bool enabled)
+    {
+        if (planeToggleController != null)
+            planeToggleController.SetPlaneVisualization(enabled);
+    }
+
+    public bool IsARPlaneVisualizationEnabled()
+    {
+        return planeToggleController != null && planeToggleController.enabled;
     }
 }
