@@ -150,3 +150,7 @@ This project is created for educational purposes as part of a university course.
 ---
 
 **Note**: This AR experience requires a device with ARCore support and adequate lighting conditions for optimal performance.
+
+## And now screenshots
+<img width="925" height="510" alt="image" src="https://github.com/user-attachments/assets/b4174f82-6ca3-469e-9e8b-126b73d42a87" />
+
